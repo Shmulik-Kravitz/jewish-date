@@ -24,6 +24,7 @@ const jewishMonthsHebrewNamesDic = {
   [JewishMonth.Av]: "אב",
   [JewishMonth.Elul]: "אלול",
 };
+
 export const getJewishMonthInHebrew = (
   jewishMonth: JewishMonthType
 ): string => {
@@ -47,6 +48,7 @@ export const toHebrewJewishDate = (
     year: convertNumberToHebrew(jewishDate.year),
   };
 };
+
 export const formatJewishDateInHebrew = (
   jewishDate: BasicJewishDate
 ): string => {
