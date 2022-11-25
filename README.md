@@ -31,7 +31,7 @@ const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
 console.log(jewishDateInHebrew); // { day: "ד׳", monthName: "טבת", year: "התש״פ" }
 
 const jewishDateInHebrewStr = formatJewishDateInHebrew(jewishDate);
-console.log(jewishDateInHebrewStr); // ד׳ טבת התש
+console.log(jewishDateInHebrewStr); // ד׳ טבת התש״פ
 
 const date2 = toGregorianDate({ year: 5780, monthName: JewishMonth.Tevet, day: 4 });
 console.log(date2); // Wed Jan 01 2020 00:00:00 GMT+0200 (Israel Standard Time)
