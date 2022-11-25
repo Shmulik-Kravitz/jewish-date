@@ -80,23 +80,18 @@ jobs:
         with:
           name: dist
           path: dist
-          # - run: yarn npm publish --access public
-      #   env:
-      #     YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - run: yarn inc-version
+
+      - run: yarn npm publish --access public
+        env:
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Set env $VERSION_TAG
         run: echo "VERSION_TAG=$(yarn get-version)" >> $GITHUB_ENV
         
       - run: git tag v$VERSION_TAG
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ env.VERSION_TAG }}
-          files: |
-            dist/*
-            lib/*
       - name: Commit report
         run: |
           git config --global user.name 'CI'
