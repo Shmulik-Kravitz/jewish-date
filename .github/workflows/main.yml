@@ -1,30 +1,20 @@
-name: CI
+name: CI/CD
 
-on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - 'v*'
-  pull_request:
+on: [push, pull_request]
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18
         cache: 'yarn'
+
     - run: yarn
     - run: yarn build
     - run: yarn test
@@ -47,7 +37,70 @@ jobs:
       with:
         recreate: true
         path: code-coverage-results.md
-    
-    - run: yarn npm publish --access public
-      env:
-        YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+       name: lib
+       path: lib
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: dist
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: write
+      deployments: write
+    needs: [build-and-test]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - run: yarn
+      
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: lib
+          path: lib
+      
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+          # - run: yarn npm publish --access public
+      #   env:
+      #     YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn inc-version
+      
+      - name: Set env $VERSION_TAG
+        run: echo "VERSION_TAG=$(yarn get-version)" >> $GITHUB_ENV
+        
+      - run: git tag v$VERSION_TAG
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION_TAG }}
+          files: |
+            dist/*
+            lib/*
+      - name: Commit report
+        run: |
+          git config --global user.name 'CI'
+          git config --global user.email 'CI@users.noreply.github.com'
+          git commit -am v$VERSION_TAG
+          git push
+          git push origin v$VERSION_TAG

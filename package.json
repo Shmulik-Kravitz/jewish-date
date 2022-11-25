@@ -1,6 +1,7 @@
 {
   "name": "jewish-date",
   "version": "1.0.0",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
   "repository": {
@@ -13,7 +14,8 @@
     "clean": "rimraf dist",
     "test": "vitest --config ./config/vitest.config.ts  --coverage",
     "p": "yarn pack --out %s-%v.tgz",
-    "inc-version": "yarn version patch"
+    "inc-version": "yarn version patch",
+    "get-version": "node -p \"require('./package.json').version\""
   },
   "devDependencies": {
     "@types/gematriya": "^2.0.2",

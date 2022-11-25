@@ -5,7 +5,7 @@ import { buildDeclarations } from "./tsUtils";
 
 export const baseConfig: BuildOptions = {
   bundle: true,
-  sourcemap: true,
+  sourcemap: false,
   // splitting: true,
 };
 
