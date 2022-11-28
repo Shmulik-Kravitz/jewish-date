@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { JewishMonth } from "../src";
+import { formatJewishDate, JewishMonth } from "../src";
 import {
   toJewishDate,
   toGregorianDate,
@@ -15,6 +15,9 @@ export const test = () => {
   console.log({ date1 });
   const jewishDate = toJewishDate(date1);
   console.log(jewishDate);
+
+  const jewishDateInEnglish = formatJewishDate(jewishDate);
+  console.log(jewishDateInEnglish);
 
   const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
   console.log(jewishDateInHebrew);

@@ -27,6 +27,9 @@ const date = new Date("2020-01-01");
 const jewishDate = toJewishDate(date);
 console.log(jewishDate); // { year: 5780, monthName: "Tevet", month: 4, day: 4 }
 
+const jewishDateInEnglish = formatJewishDate(jewishDate);
+console.log(jewishDateInEnglish); // 4 Tevet 5780
+
 const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
 console.log(jewishDateInHebrew); // { day: "ד׳", monthName: "טבת", year: "התש״פ" }
 
