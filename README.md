@@ -25,7 +25,7 @@ import {
 
 const date = new Date("2020-01-01");
 const jewishDate = toJewishDate(date);
-console.log(jewishDate); // { year: 5780, monthName: "Tevet", day: 4 }
+console.log(jewishDate); // { year: 5780, monthName: "Tevet", month: 4, day: 4 }
 
 const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
 console.log(jewishDateInHebrew); // { day: "ד׳", monthName: "טבת", year: "התש״פ" }

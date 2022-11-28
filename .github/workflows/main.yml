@@ -94,8 +94,8 @@ jobs:
 
       - name: Commit report
         run: |
-          git config --global user.name 'CI'
-          git config --global user.email 'CI@users.noreply.github.com'
+          git config --global user.name 'Shmulik-Kravitz'
+          git config --global user.email '29735690+Shmulik-Kravitz@users.noreply.github.com'
           git commit -am v$VERSION_TAG
           git push
           git push origin v$VERSION_TAG
