@@ -1,6 +1,11 @@
-# Jewish Date &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Shmulik-Kravitz/jewish-date/blob/master/LICENSE) ![main workflow](https://github.com/Shmulik-Kravitz/jewish-date/actions/workflows/main.yml/badge.svg) ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat) [![npm version](https://img.shields.io/npm/v/jewish-date.svg?style=flat)](https://www.npmjs.com/package/jewish-date)
+# Jewish Date &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Shmulik-Kravitz/jewish-date/blob/master/LICENSE) ![main workflow](https://github.com/Shmulik-Kravitz/jewish-date/actions/workflows/main.yml/badge.svg) ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat) [![npm version](https://img.shields.io/npm/v/jewish-date.svg?style=flat)](https://www.npmjs.com/package/jewish-date) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/jewish-date?style=plastic)
 
-Jewish Date is a Hebrew date to Gregorian date and vice verser converter.
+## Jewish Date is a Hebrew date to Gregorian date and vice versa converter
+
+* 🌐 Works in both Node.js and in the browser
+* 📦 2kB mini library
+
+
 
 ## Installation
 
