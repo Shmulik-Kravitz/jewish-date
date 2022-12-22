@@ -1,9 +1,9 @@
-# Jewish Date &middot; [![npm version](https://img.shields.io/npm/v/jewish-date.svg)](https://www.npmjs.com/package/jewish-date) [![npm bundle size](https://badgen.net/bundlephobia/minzip/jewish-date)](https://bundlephobia.com/package/jewish-date) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Shmulik-Kravitz/jewish-date/blob/master/LICENSE) ![main workflow](https://github.com/Shmulik-Kravitz/jewish-date/actions/workflows/main.yml/badge.svg) ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat) 
+# Jewish Date &middot; [![npm version](https://img.shields.io/npm/v/jewish-date.svg)](https://www.npmjs.com/package/jewish-date) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/jewish-date.svg)](https://bundlephobia.com/package/jewish-date) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Shmulik-Kravitz/jewish-date/blob/master/LICENSE) ![main workflow](https://github.com/Shmulik-Kravitz/jewish-date/actions/workflows/main.yml/badge.svg) ![Code Coverage](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat) 
 
 ## Jewish Date is a Hebrew date to Gregorian date and vice versa converter
 
 * 🌐 Works with both Node.js and the browser
-* 📦 2kB mini library (minified & gzip)
+* 📦 2.5kB mini library (minified & gzip)
 * 📜 MIT License
 * 🔧 Easy to use
 
@@ -25,7 +25,7 @@ npm install jewish-date --save
 
 ```js
 import {
-  toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, , JewishMonth
+  toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, JewishMonth
 } from "jewish-date";
 
 const date = new Date("2020-01-01");
@@ -52,7 +52,7 @@ Replace
 
 ```js
 import {
-  toJewishDate, toGregorianDate, formatJewishDateInHebrew, toHebrewJewishDate
+  toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, JewishMonth
 } from "jewish-date";
 ```
 
@@ -60,7 +60,7 @@ With
 
 ```js
 const {
-  toJewishDate, toGregorianDate, formatJewishDateInHebrew, toHebrewJewishDate
+  toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, JewishMonth
 } = require("jewish-date");
 ```
 
