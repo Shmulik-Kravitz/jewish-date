@@ -1,6 +1,6 @@
 {
   "name": "jewish-date",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
