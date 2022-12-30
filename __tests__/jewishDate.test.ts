@@ -53,6 +53,27 @@ describe("jewishDate", () => {
     expect(jewishDate).toStrictEqual(JewishMonth.None);
   });
  
+  it("Convert 2023-04-26 to Jewish date", () => {
+    const date = new Date("2023-04-26");
+    const jewishDate = toJewishDate(date);
+    expect(jewishDate).toStrictEqual({
+      year: 5783,
+      month: 8,
+      monthName: JewishMonth.Iyyar,
+      day: 5,
+    });
+  });
+
+  it("Convert 2022-02-02 to Jewish date", () => {
+    const date = new Date("2022-02-02");
+    const jewishDate = toJewishDate(date);
+    expect(jewishDate).toStrictEqual({
+      year: 5782,
+      month: 6,
+      monthName: JewishMonth.AdarI,
+      day: 1,
+    });
+  });
 
   it("Convert 2022-09-26 to Jewish date", () => {
     const date = new Date("2022-09-26");
@@ -117,6 +138,30 @@ describe("jewishDate", () => {
       monthName: JewishMonth.Shevat,
       day: 8,
     });
+  });
+
+  it("Convert 5782-AdarI-01 to Gregorian date", () => {
+    const gregorianDate = toGregorianDate({
+      year: 5782,
+      monthName: JewishMonth.AdarI,
+      day: 1,
+    });
+    // console.log(gregorianDate);
+    expect(gregorianDate.toLocaleDateString("en-CA")).toStrictEqual(
+      "2022-02-02"
+    );
+  });
+
+  it("Convert 5782-AdarI-01 to Gregorian date", () => {
+    const gregorianDate = toGregorianDate({
+      year: 5782,
+      monthName: JewishMonth.AdarII,
+      day: 1,
+    });
+    // console.log(gregorianDate);
+    expect(gregorianDate.toLocaleDateString("en-CA")).toStrictEqual(
+      "2022-03-04"
+    );
   });
 
   it("Convert 5761-Tevet-18 to Gregorian date", () => {

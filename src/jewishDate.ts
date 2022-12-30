@@ -22,8 +22,8 @@ const jewishMonthsNamesDic = {
   [JewishMonth.Tevet]: 10,
   [JewishMonth.Shevat]: 11,
   [JewishMonth.Adar]: 12,
-  [JewishMonth.AdarI]: 13,
-  [JewishMonth.AdarII]: 14,
+  [JewishMonth.AdarI]: 12,
+  [JewishMonth.AdarII]: 13,
   [JewishMonth.Nisan]: 1,
   [JewishMonth.Iyyar]: 2,
   [JewishMonth.Sivan]: 3,
@@ -39,9 +39,9 @@ export const getIndexByJewishMonth = (jewishMonth: JewishMonthType): number => {
 const jewishMonths: JewishMonthType[] = [
   JewishMonth.None,
   JewishMonth.Nisan,
+  JewishMonth.Iyyar,
   JewishMonth.Sivan,
   JewishMonth.Tammuz,
-  JewishMonth.Iyyar,
   JewishMonth.Av,
   JewishMonth.Elul,
   JewishMonth.Tishri,
@@ -50,12 +50,15 @@ const jewishMonths: JewishMonthType[] = [
   JewishMonth.Tevet,
   JewishMonth.Shevat,
   JewishMonth.Adar,
-  JewishMonth.AdarI,
   JewishMonth.AdarII,
 ];
 
-export const getJewishMonthByIndex = (index: number): JewishMonthType => {
-  return jewishMonths[index] || JewishMonth.None;
+export const getJewishMonthByIndex = (index: number, jewishYear: number): JewishMonthType => {
+ const month = jewishMonths[index] || JewishMonth.None;
+  if (month == JewishMonth.Adar && isLeapYear(jewishYear)) {
+    return JewishMonth.AdarI;
+  }
+  return month;
 };
 
 const jewishMonthsInOrder: JewishMonthType[] = [
@@ -68,9 +71,9 @@ const jewishMonthsInOrder: JewishMonthType[] = [
   JewishMonth.AdarI,
   JewishMonth.AdarII,
   JewishMonth.Nisan,
+  JewishMonth.Iyyar,
   JewishMonth.Sivan,
   JewishMonth.Tammuz,
-  JewishMonth.Iyyar,
   JewishMonth.Av,
   JewishMonth.Elul,
 ];
@@ -119,7 +122,8 @@ export const toJewishDate = (date: Date): JewishDate => {
   // console.log(jewishDateArr);
 
   const jewishYear = jewishDateArr[0];
-  const jewishMonthName = getJewishMonthByIndex(jewishDateArr[1]);
+  const jewishMonthName = getJewishMonthByIndex(jewishDateArr[1], jewishYear);
+  // console.log({ jewishMonthName });
   const jewishMonth = getJewishMonthsInOrder(jewishYear).findIndex(
     (i) => i === jewishMonthName
   );
@@ -133,12 +137,11 @@ export const toJewishDate = (date: Date): JewishDate => {
 };
 
 export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
-  const jd = hebrew_to_jd(
-    jewishDate.year,
-    getIndexByJewishMonth(jewishDate.monthName),
-    jewishDate.day
-  );
+  const jewishMonth = getIndexByJewishMonth(jewishDate.monthName);
+  // console.log({ jewishMonth });
+  const jd = hebrew_to_jd(jewishDate.year, jewishMonth, jewishDate.day);
   // console.log(jd);
+
   const gregDateArr = jd_to_gregorian(jd);
   // console.log(gregDateArr);
   const dateStr = `${toLength(gregDateArr[0], 4)}-${toLength(
@@ -146,6 +149,7 @@ export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
     2
   )}-${toLength(gregDateArr[2], 2)}`;
   // console.log(dateStr);
+
   const date = new Date(dateStr);
   if (date.getHours() > 0) {
     // fix issue in chrome that we chan't set hours in Date Constructor for year 0000

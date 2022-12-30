@@ -11,8 +11,8 @@ import {
 import "./index.css";
 
 export const test = () => {
-  const date1 = new Date("2020-01-01");
-  console.log({ date1 });
+  const date1 = new Date("2022-03-04");
+  console.log( date1);
   const jewishDate = toJewishDate(date1);
   console.log(jewishDate);
 
@@ -22,12 +22,14 @@ export const test = () => {
   const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
   console.log(jewishDateInHebrew);
 
-  const date2 = toGregorianDate({
-    year: 5780,
-    monthName: JewishMonth.Tevet,
-    day: 4,
-  });
-  console.log({ date: date2 });
+  const jewishDate2 = {
+    year: 5782,
+    monthName: JewishMonth.AdarII,
+    day: 1,
+  }
+  console.log( jewishDate2 );
+  const date2 = toGregorianDate(jewishDate2);
+  console.log(date2);
   return jewishDate;
 };
 

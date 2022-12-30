@@ -13,7 +13,7 @@ export const start = async (entryPoints: string, outfile: string) => {
   const start = new Date().getTime();
   serve(
     {
-      port: 8000,
+      port: 3000,
       servedir: "./config/static",
       onRequest: (args) => {
         // console.log(args);
