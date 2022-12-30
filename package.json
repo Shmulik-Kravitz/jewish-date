@@ -1,7 +1,7 @@
 {
   "name": "jewish-date",
   "description": "Hebrew Date to Gregorian Date and vice versa converter",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "lib/index.d.ts",
