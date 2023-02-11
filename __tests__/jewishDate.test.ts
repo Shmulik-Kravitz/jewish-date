@@ -153,7 +153,7 @@ describe("jewishDate", () => {
       day: 1,
     });
     // console.log(gregorianDate);
-    expect(gregorianDate.toLocaleDateString("en-CA")).toStrictEqual(
+    expect(formatDate(gregorianDate)).toStrictEqual(
       "2022-02-02"
     );
   });
@@ -165,7 +165,7 @@ describe("jewishDate", () => {
       day: 1,
     });
     // console.log(gregorianDate);
-    expect(gregorianDate.toLocaleDateString("en-CA")).toStrictEqual(
+    expect(formatDate(gregorianDate)).toStrictEqual(
       "2022-03-04"
     );
   });
@@ -177,7 +177,7 @@ describe("jewishDate", () => {
       day: 18,
     });
     // console.log(gregorianDate);
-    expect(gregorianDate.toLocaleDateString("en-CA")).toStrictEqual(
+    expect(formatDate(gregorianDate)).toStrictEqual(
       "2001-01-13"
     );
   });

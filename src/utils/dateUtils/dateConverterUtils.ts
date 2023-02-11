@@ -7,7 +7,6 @@
                 This program is in the public domain.
 */
 
-
 const gregorianEpoch = 1721425.5;
 
 const hebrewEpoch = 347995.5;
@@ -75,7 +74,6 @@ export function jdToGregorian(jd: number) {
 
   return [year, month, day];
 }
-
 
 //  Is a given Hebrew year a leap year ?
 
