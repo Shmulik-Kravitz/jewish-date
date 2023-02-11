@@ -1,5 +1,5 @@
 import { expect, it, describe } from "vitest";
-import { JewishMonth } from "../src/interfaces";
+import { JewishMonth, JewishMonthType } from "../src/interfaces";
 import {
   formatJewishDate,
   getIndexByJewishMonth,
@@ -41,21 +41,21 @@ describe("jewishDate", () => {
   it("Format jewish date", async () => {
     const date = new Date("2022-09-26");
     const jewishDate = toJewishDate(date);
-    expect(formatJewishDate(jewishDate)).toEqual(`1 Tishri 5783`);
+    expect(formatJewishDate(jewishDate)).toEqual('1 Tishri 5783');
   });
 
   it("Get index by jewish month with invalid value", () => {
-    const jewishDate = getIndexByJewishMonth("invalid" as any);
+    const jewishDate = getIndexByJewishMonth("invalid" as unknown as JewishMonthType);
     expect(jewishDate).toStrictEqual(0);
   });
 
   it("Get jewish month by index", () => {
-    const jewishDate = getJewishMonthByIndex(8);
+    const jewishDate = getJewishMonthByIndex(8, 5783);
     expect(jewishDate).toStrictEqual(JewishMonth.Cheshvan);
   });
 
   it("Get jewish month by index with invalid value", () => {
-    const jewishDate = getJewishMonthByIndex(15);
+    const jewishDate = getJewishMonthByIndex(15, 5783);
     expect(jewishDate).toStrictEqual(JewishMonth.None);
   });
 
