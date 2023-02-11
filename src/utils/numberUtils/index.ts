@@ -1,1 +1,1 @@
-export * from './numberUtils';
+export * from "./numberUtils";

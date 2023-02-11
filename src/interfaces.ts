@@ -1,21 +1,21 @@
 export const JewishMonth = {
-  None: `None`,
+  None: "None",
 
-  Tishri: `Tishri`,
-  Cheshvan: `Cheshvan`,
-  Kislev: `Kislev`,
-  Tevet: `Tevet`,
-  Shevat: `Shevat`,
-  Adar: `Adar`,
-  Nisan: `Nisan`,
-  Iyyar: `Iyyar`,
-  Sivan: `Sivan`,
-  Tammuz: `Tammuz`,
-  Av: `Av`,
-  Elul: `Elul`,
+  Tishri: "Tishri",
+  Cheshvan: "Cheshvan",
+  Kislev: "Kislev",
+  Tevet: "Tevet",
+  Shevat: "Shevat",
+  Adar: "Adar",
+  Nisan: "Nisan",
+  Iyyar: "Iyyar",
+  Sivan: "Sivan",
+  Tammuz: "Tammuz",
+  Av: "Av",
+  Elul: "Elul",
 
-  AdarI: `AdarI`,
-  AdarII: `AdarII`,
+  AdarI: "AdarI",
+  AdarII: "AdarII",
 } as const;
 
 export type JewishMonthType = keyof typeof JewishMonth;

@@ -26,7 +26,7 @@ const jewishMonthsHebrewNamesDic = {
 };
 
 export const getJewishMonthInHebrew = (
-  jewishMonth: JewishMonthType
+  jewishMonth: JewishMonthType,
 ): string => {
   return jewishMonthsHebrewNamesDic[jewishMonth];
 };
@@ -34,13 +34,13 @@ export const getJewishMonthInHebrew = (
 export const convertNumberToHebrew = (
   num: number,
   addGeresh = true,
-  addPunctuate = true
+  addPunctuate = true,
 ): string => {
   return gematriya(num, { geresh: addGeresh, punctuate: addPunctuate });
 };
 
 export const toHebrewJewishDate = (
-  jewishDate: BasicJewishDate
+  jewishDate: BasicJewishDate,
 ): BasicJewishDateHebrew => {
   return {
     day: convertNumberToHebrew(jewishDate.day),
@@ -50,7 +50,7 @@ export const toHebrewJewishDate = (
 };
 
 export const formatJewishDateInHebrew = (
-  jewishDate: BasicJewishDate
+  jewishDate: BasicJewishDate,
 ): string => {
   const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
   return `${jewishDateInHebrew.day} ${jewishDateInHebrew.monthName} ${jewishDateInHebrew.year}`;

@@ -1,6 +1,14 @@
-import { expect, it, describe } from 'vitest'
+import { expect, it, describe } from "vitest";
 import { JewishMonth } from "../src/interfaces";
-import { formatJewishDate, getIndexByJewishMonth, getJewishMonthByIndex, getJewishMonthsInOrder, isLeapYear, toGregorianDate, toJewishDate } from "../src/jewishDate";
+import {
+  formatJewishDate,
+  getIndexByJewishMonth,
+  getJewishMonthByIndex,
+  getJewishMonthsInOrder,
+  isLeapYear,
+  toGregorianDate,
+  toJewishDate,
+} from "../src/jewishDate";
 import { toLength } from "../src/utils/numberUtils";
 
 const formatDate = (date: Date) =>
@@ -10,13 +18,11 @@ const formatDate = (date: Date) =>
   )}-${toLength(date.getDate(), 2)}`;
 
 describe("jewishDate", () => {
-
   it("Get index by jewish month", () => {
     const jewishDate = getIndexByJewishMonth(JewishMonth.Cheshvan);
     expect(jewishDate).toStrictEqual(8);
   });
 
-  
   it("5782 is a leap year", async () => {
     expect(isLeapYear(5782)).toBeTruthy();
   });
@@ -37,22 +43,22 @@ describe("jewishDate", () => {
     const jewishDate = toJewishDate(date);
     expect(formatJewishDate(jewishDate)).toEqual(`1 Tishri 5783`);
   });
-  
+
   it("Get index by jewish month with invalid value", () => {
     const jewishDate = getIndexByJewishMonth("invalid" as any);
     expect(jewishDate).toStrictEqual(0);
   });
 
   it("Get jewish month by index", () => {
-    const jewishDate = getJewishMonthByIndex (8);
+    const jewishDate = getJewishMonthByIndex(8);
     expect(jewishDate).toStrictEqual(JewishMonth.Cheshvan);
   });
 
   it("Get jewish month by index with invalid value", () => {
-    const jewishDate = getJewishMonthByIndex (15);
+    const jewishDate = getJewishMonthByIndex(15);
     expect(jewishDate).toStrictEqual(JewishMonth.None);
   });
- 
+
   it("Convert 2023-04-26 to Jewish date", () => {
     const date = new Date("2023-04-26");
     const jewishDate = toJewishDate(date);

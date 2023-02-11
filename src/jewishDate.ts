@@ -6,10 +6,10 @@ import {
   JewishMonthType,
 } from "./interfaces";
 import {
-  gregorian_to_jd,
-  hebrew_to_jd,
-  jd_to_gregorian,
-  jd_to_hebrew,
+  gregorianToJd,
+  hebrewToJd,
+  jdToGregorian,
+  jdToHebrew,
 } from "./utils/dateUtils";
 import { toLength } from "./utils/numberUtils";
 
@@ -53,9 +53,12 @@ const jewishMonths: JewishMonthType[] = [
   JewishMonth.AdarII,
 ];
 
-export const getJewishMonthByIndex = (index: number, jewishYear: number): JewishMonthType => {
- const month = jewishMonths[index] || JewishMonth.None;
-  if (month == JewishMonth.Adar && isLeapYear(jewishYear)) {
+export const getJewishMonthByIndex = (
+  index: number,
+  jewishYear: number,
+): JewishMonthType => {
+  const month = jewishMonths[index] || JewishMonth.None;
+  if (month === JewishMonth.Adar && isLeapYear(jewishYear)) {
     return JewishMonth.AdarI;
   }
   return month;
@@ -96,10 +99,10 @@ export const getJewishMonthsInOrder = (year: number): string[] => {
     return jewishMonthsInOrder;
   } else {
     return jewishMonthsInOrder
-      .filter((month) => month !== `AdarII`)
+      .filter((month) => month !== "AdarII")
       .map((month) => {
-        if (month == `AdarI`) {
-          return `Adar`;
+        if (month === "AdarI") {
+          return "Adar";
         } else {
           return month;
         }
@@ -116,16 +119,16 @@ export const toJewishDate = (date: Date): JewishDate => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
   //   console.log({ year, month, day });
-  const jd2 = gregorian_to_jd(year, month, day);
+  const jd2 = gregorianToJd(year, month, day);
 
-  const jewishDateArr = jd_to_hebrew(jd2);
+  const jewishDateArr = jdToHebrew(jd2);
   // console.log(jewishDateArr);
 
   const jewishYear = jewishDateArr[0];
   const jewishMonthName = getJewishMonthByIndex(jewishDateArr[1], jewishYear);
   // console.log({ jewishMonthName });
   const jewishMonth = getJewishMonthsInOrder(jewishYear).findIndex(
-    (i) => i === jewishMonthName
+    (i) => i === jewishMonthName,
   );
   const JewishDate: JewishDate = {
     year: jewishYear,
@@ -139,14 +142,14 @@ export const toJewishDate = (date: Date): JewishDate => {
 export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
   const jewishMonth = getIndexByJewishMonth(jewishDate.monthName);
   // console.log({ jewishMonth });
-  const jd = hebrew_to_jd(jewishDate.year, jewishMonth, jewishDate.day);
+  const jd = hebrewToJd(jewishDate.year, jewishMonth, jewishDate.day);
   // console.log(jd);
 
-  const gregDateArr = jd_to_gregorian(jd);
+  const gregDateArr = jdToGregorian(jd);
   // console.log(gregDateArr);
   const dateStr = `${toLength(gregDateArr[0], 4)}-${toLength(
     gregDateArr[1],
-    2
+    2,
   )}-${toLength(gregDateArr[2], 2)}`;
   // console.log(dateStr);
 
