@@ -182,6 +182,18 @@ describe("jewishDate", () => {
     );
   });
 
+  it("Convert 5763-Nisan-16 to Gregorian date", () => {
+    const gregorianDate = toGregorianDate({
+      year: 5783,
+      monthName: JewishMonth.Nisan,
+      day: 16,
+    });
+    // console.log(gregorianDate);
+    expect(formatDate(gregorianDate)).toStrictEqual(
+      "2023-04-07"
+    );
+  });
+
   it("Convert 3761-Tevet-18 to Gregorian date", () => {
     const gregorianDate = toGregorianDate({
       year: 3761,

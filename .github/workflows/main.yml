@@ -82,7 +82,9 @@ jobs:
           path: dist
 
       - run: yarn inc-version
-
+      # - run: npm install -g npm
+      # - run: npm ci
+      # - run: npm publish --provenance --access public
       - run: yarn npm publish --access public
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
