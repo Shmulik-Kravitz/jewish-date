@@ -51,7 +51,7 @@ export const build = async (
 ) => {
   const start = new Date().getTime();
   const outPathEsm = path.resolve(outPath, "mjs");
-  const entryPoints = (await getFiles(path.join(process.cwd(), "src"))).map((file) => file.replace(process.cwd(), ''));
+  const entryPoints = (await getFiles(path.join(process.cwd(), "src"))).map((file) => file.replace(process.cwd(), '.'));
 
   // console.log(entryPoints);
   Promise.all([
