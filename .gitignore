@@ -13,3 +13,7 @@ dist/
 lib/
 
 coverage
+config/static/out.css
+config/static/out.css.map
+config/static/out.js
+config/static/out.js.map

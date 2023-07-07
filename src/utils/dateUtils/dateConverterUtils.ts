@@ -221,12 +221,12 @@ export function hebrewToJd(year: number, month: number, day: number) {
  * @param jd - The Julian date to convert.
  * @returns The Hebrew date as a tuple in the form of [year, month, day].
  */
-export function jdToHebrew(jd: number): [number, number, number] {
+export function jdToHebrew(julianDate: number): [number, number, number] {
   const HEBREW_EPOCH = 347995.5;
   let year: number;
   let month: number;
 
-  jd = Math.floor(jd) + 0.5;
+  const jd = Math.floor(julianDate) + 0.5;
   const count: number = Math.floor(
     ((jd - HEBREW_EPOCH) * 98496.0) / 35975351.0,
   );

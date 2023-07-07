@@ -1,44 +1,45 @@
-import { build as esbuild, serve, BuildOptions } from "esbuild";
+// import { build as esbuild, serve, BuildOptions } from "esbuild";
+import * as esbuild from "esbuild";
 import nodeExternalsPlugin from "esbuild-node-externals";
+import path from "path";
 import { Colors } from "./colorsUtils";
 import { buildDeclarations } from "./tsUtils";
+import { getFiles } from "./filesUtils";
 
-export const baseConfig: BuildOptions = {
+export const baseConfig: esbuild.BuildOptions = {
   bundle: true,
-  sourcemap: false,
+  sourcemap: true,
   // splitting: true,
 };
 
 export const start = async (entryPoints: string, outfile: string) => {
   const start = new Date().getTime();
-  serve(
-    {
-      port: 3000,
-      servedir: "./config/static",
-      onRequest: (args) => {
-        // console.log(args);
-      },
-    },
-    {
-      // plugins: [pnpPlugin()],
-      ...baseConfig,
-      entryPoints: [entryPoints],
-      outfile: "./config/static/out.js",
-    }
-  ).then((server) => {
-    console.log(`http://127.0.0.1:${server.port}/`);
-
-    const end = new Date().getTime();
-    const time = end - start;
-    console.log(
-      Colors.FgGreen,
-      `Started in ${(time / 1000).toFixed(5)} sec.`,
-      Colors.Reset
-    );
-
-    // Call "stop" on the web server to stop serving
-    // server.stop()
+  const ctx = await esbuild.context({
+    // plugins: [pnpPlugin()],
+    ...baseConfig,
+    entryPoints: [entryPoints],
+    outfile: "./config/static/out.js",
   });
+  const { host, port } = await ctx.serve({
+    port: 3000,
+    servedir: "./config/static",
+    onRequest: (args) => {
+      // console.log(args);
+    },
+
+  });
+  console.log(`http://${host}:${port}/`);
+  console.log(`http://127.0.0.1:${port}/`);
+
+  const end = new Date().getTime();
+  const time = end - start;
+  console.log(
+    Colors.FgGreen,
+    `Started in ${(time / 1000).toFixed(5)} sec.`,
+    Colors.Reset
+  );
+  // Call "stop" on the web server to stop serving
+  // server.stop()
 };
 
 export const build = async (
@@ -49,17 +50,37 @@ export const build = async (
   declarationsOutPath: string
 ) => {
   const start = new Date().getTime();
-  esbuild({
-    ...baseConfig,
-    plugins: [
-      // pnpPlugin(),
-      nodeExternalsPlugin(),
-    ],
-    entryPoints: ["./src/index.ts"],
-    outdir: outPath,
-    minify: true,
-    format: "cjs",
-  })
+  const outPathEsm = path.resolve(outPath, "mjs");
+  const entryPoints = (await getFiles(path.join(process.cwd(), "src"))).map((file) => file.replace(process.cwd(), ''));
+
+  // console.log(entryPoints);
+  Promise.all([
+    esbuild.build({
+      ...baseConfig,
+      plugins: [
+        // pnpPlugin(),
+        nodeExternalsPlugin(),
+      ],
+      entryPoints: ["./src/index.ts"],
+      outdir: outPath,
+      minify: true,
+      format: "cjs",
+    }),
+    esbuild.build({
+      ...baseConfig,
+      bundle: false,
+      plugins: [
+        // pnpPlugin(),
+        nodeExternalsPlugin(),
+      ],
+      entryPoints: entryPoints,
+      outdir: outPathEsm,
+      minify: true,
+      format: "esm",
+      target: "esnext",
+    }),
+  ])
+
     .then(async () => {
       const endBuild = new Date().getTime();
       const timeBuild = endBuild - start;
