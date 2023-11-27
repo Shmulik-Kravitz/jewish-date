@@ -1,6 +1,7 @@
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 import { JewishMonth, JewishMonthType } from "../src/interfaces";
 import {
+  calcDaysInMonth,
   formatJewishDate,
   getIndexByJewishMonth,
   getJewishMonthByIndex,
@@ -212,5 +213,16 @@ describe("jewishDate", () => {
     });
     // console.log(gregorianDate);
     expect(formatDate(gregorianDate)).toEqual("0000-01-01");
+  });
+
+  it("Calculate number of days for Cheshvan 5784", () => {
+    const numberOfDays = calcDaysInMonth(5784, JewishMonth.Cheshvan);
+    // console.log(gregorianDate);
+    expect(numberOfDays).toEqual(29);
+  });
+  it("Calculate number of days for Cheshvan 5783", () => {
+    const numberOfDays = calcDaysInMonth(5783, JewishMonth.Cheshvan);
+    // console.log(gregorianDate);
+    expect(numberOfDays).toEqual(30);
   });
 });
