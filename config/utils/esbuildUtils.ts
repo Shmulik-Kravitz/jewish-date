@@ -75,6 +75,7 @@ export const build = async (
       ],
       entryPoints: entryPoints,
       outdir: outPathEsm,
+      outExtension: { '.js': '.mjs' },
       minify: true,
       format: "esm",
       target: "esnext",
