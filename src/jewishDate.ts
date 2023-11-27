@@ -18,8 +18,8 @@ import {
   hebrewToJd,
   jdToGregorian,
   jdToHebrew,
-} from "./utils/dateUtils";
-import { toLength } from "./utils/numberUtils";
+} from "./utils/dateUtils/dateUtils";
+import { toLength } from "./utils/numberUtils/numberUtils";
 
 /**
  * Checks if the given year is a leap year according to the Jewish calendar.

@@ -1,14 +1,14 @@
 {
   "name": "jewish-date",
   "description": "Converts Gregorian dates to Hebrew dates and vice versa.",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/mjs/index.mjs",
+  "module": "dist/mjs/index.js",
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/mjs/index.mjs",
+      "import": "./dist/mjs/index.js",
       "require": "./dist/index.js"
     }
   },
@@ -35,7 +35,9 @@
     "@vitest/coverage-v8": "^0.34.6",
     "esbuild": "^0.19.5",
     "esbuild-node-externals": "^1.9.0",
+    "esbuild-plugin-file-path-extensions": "^1.0.0",
     "esbuild-runner": "^2.2.2",
+    "fs-extra": "^11.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",

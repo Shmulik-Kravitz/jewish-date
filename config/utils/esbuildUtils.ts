@@ -2,9 +2,11 @@
 import * as esbuild from "esbuild";
 import nodeExternalsPlugin from "esbuild-node-externals";
 import path from "path";
+import fs from "fs-extra";
 import { Colors } from "./colorsUtils";
 import { buildDeclarations } from "./tsUtils";
 import { getFiles } from "./filesUtils";
+import { esbuildPluginFilePathExtensions } from 'esbuild-plugin-file-path-extensions';
 
 export const baseConfig: esbuild.BuildOptions = {
   bundle: true,
@@ -68,14 +70,14 @@ export const build = async (
     }),
     esbuild.build({
       ...baseConfig,
-      bundle: false,
+      bundle: true,
       plugins: [
         // pnpPlugin(),
         nodeExternalsPlugin(),
+        esbuildPluginFilePathExtensions({ esm: true, esmExtension: "js" }),
       ],
       entryPoints: entryPoints,
       outdir: outPathEsm,
-      outExtension: { '.js': '.mjs' },
       minify: true,
       format: "esm",
       target: "esnext",
@@ -83,6 +85,12 @@ export const build = async (
   ])
 
     .then(async () => {
+      const esmPackageJsonPath = path.resolve("./config/vitest", "package.json");
+      const esmDistPackageJsonPath = path.resolve(outPathEsm, "package.json");
+      // console.log(esmPackageJsonPath);
+      // console.log(esmDistPackageJsonPath);
+      await fs.copyFile(esmPackageJsonPath, esmDistPackageJsonPath);
+
       const endBuild = new Date().getTime();
       const timeBuild = endBuild - start;
 
