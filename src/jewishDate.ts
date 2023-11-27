@@ -9,12 +9,12 @@
 import {
   BasicJewishDate,
   JewishDate,
-  BasicJewishDateHebrew,
   JewishMonth,
   JewishMonthType,
 } from "./interfaces";
 import {
   gregorianToJd,
+  hebrewMonthDays,
   hebrewToJd,
   jdToGregorian,
   jdToHebrew,
@@ -124,17 +124,17 @@ export const getJewishMonthsInOrder = (year: number): string[] => {
   ];
   if (isLeapYear(year)) {
     return jewishMonthsInOrder;
-  } else {
-    return jewishMonthsInOrder
-      .filter((month) => month !== "AdarII")
-      .map((month) => {
-        if (month === "AdarI") {
-          return "Adar";
-        } else {
-          return month;
-        }
-      });
   }
+
+  return jewishMonthsInOrder
+    .filter((month) => month !== "AdarII")
+    .map((month) => {
+      if (month === "AdarI") {
+        return "Adar";
+      }
+
+      return month;
+    });
 };
 
 /**
@@ -201,4 +201,18 @@ export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
     date.setHours(0, 0, 0, 0);
   }
   return date;
+};
+
+/**
+ * Calculates the number of days in a Jewish month for a given Jewish year.
+ * @param {number} jewishYear - The Jewish year for which the calculation is performed.
+ * @param {JewishMonthType} jewishMonth - The type of Jewish month (e.g., 'Heshvan', 'Kislev').
+ * @returns {number} - The number of days in the specified Jewish month of the given year.
+ */
+export const calcDaysInMonth = (
+  jewishYear: number,
+  jewishMonth: JewishMonthType,
+): number => {
+  const jewishMonthIndex = getIndexByJewishMonth(jewishMonth);
+  return hebrewMonthDays(jewishYear, jewishMonthIndex);
 };

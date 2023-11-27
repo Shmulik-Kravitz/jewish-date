@@ -156,7 +156,7 @@ function hebrewYearDays(year: number) {
  * @param {number} month - The month of the year, where Nisan is 1 and Adar II (in leap years) is 13.
  * @returns {number} - The number of days in the specified month.
  */
-function hebrewMonthDays(year: number, month: number) {
+export function hebrewMonthDays(year: number, month: number) {
   if (
     month === 2 ||
     month === 4 ||
