@@ -8,6 +8,7 @@
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
+      "types": "./lib/index.d.ts",
       "import": "./dist/mjs/index.js",
       "require": "./dist/index.js"
     }
