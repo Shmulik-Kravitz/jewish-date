@@ -7,12 +7,12 @@
  */
 
 import gematriya from "gematriya";
-import {
+import type {
   BasicJewishDate,
   BasicJewishDateHebrew,
-  JewishMonth,
   JewishMonthType,
 } from "./interfaces";
+import { JewishMonth } from "./interfaces";
 
 /**
  * Returns the name of a Jewish month in Hebrew, given its type.

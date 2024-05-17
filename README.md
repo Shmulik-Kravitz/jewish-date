@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/npm/v/jewish-date.svg" alt="npm version" />
   </a>
   <a href="https://unpkg.com/jewish-date@*/dist/index.js">
-    <img src="https://img.badgesize.io/https:/unpkg.com/jewish-date@*/dist/index.js?compression=gzip" alt="Gzip Size" />
+    <img src="https://img.shields.io/badge/Size-2%20kb-success?style=flat" alt="Gzip Size" />
   </a>
   <a href="https://github.com/Shmulik-Kravitz/jewish-date/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />

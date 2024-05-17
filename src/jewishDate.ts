@@ -6,12 +6,12 @@
  *
  */
 
-import {
+import type {
   BasicJewishDate,
   JewishDate,
-  JewishMonth,
   JewishMonthType,
 } from "./interfaces";
+import { JewishMonth } from "./interfaces";
 import {
   gregorianToJd,
   hebrewMonthDays,
