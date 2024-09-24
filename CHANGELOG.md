@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.12
+
+- Better ESM support
+
 ## 2.0.8
 
 - Better ESM support
