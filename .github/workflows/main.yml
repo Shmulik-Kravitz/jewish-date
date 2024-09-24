@@ -1,4 +1,4 @@
-name: CI-CD
+name: CI/CD
 
 on: [push, pull_request]
 
@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+    
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
@@ -16,13 +18,13 @@ jobs:
         cache: 'yarn'
 
     - name: Install
-    - run: yarn
+      run: yarn
 
     - name: Build
-    - run: yarn build
+      run: yarn build
 
     - name: Test
-    - run: yarn test
+      run: yarn test
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
@@ -66,7 +68,9 @@ jobs:
     needs: [build-and-test]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -74,7 +78,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install
-      - run: yarn
+        run: yarn
       
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -89,10 +93,10 @@ jobs:
           path: dist
 
       - name: Increment version
-      - run: yarn inc-version
+        run: yarn inc-version
 
       - name: npm-publish
-      - uses: JS-DevTools/npm-publish@v3
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
           provenance: true
@@ -109,8 +113,8 @@ jobs:
       - name: Set env $VERSION_TAG
         run: echo "VERSION_TAG=$(yarn get-version)" >> $GITHUB_ENV
 
-      - name: Set tag to v$VERSION_TAG
-      - run: git tag v$VERSION_TAG
+      - name: Set the tag to v$VERSION_TAG
+        run: git tag v$VERSION_TAG
 
       - name: Commit 
         run: |
