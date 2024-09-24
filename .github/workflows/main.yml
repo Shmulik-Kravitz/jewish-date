@@ -65,6 +65,7 @@ jobs:
       contents: write
       pull-requests: write
       deployments: write
+      id-token: write
     needs: [build-and-test]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
     steps:
