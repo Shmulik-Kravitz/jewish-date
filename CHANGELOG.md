@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.12
+
+- Publish with provenance
+
 ## 2.0.8
 
 - Better ESM support
