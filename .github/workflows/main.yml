@@ -15,8 +15,13 @@ jobs:
         node-version: 20
         cache: 'yarn'
 
+    - name: Install
     - run: yarn
+
+    - name: Build
     - run: yarn build
+
+    - name: Test
     - run: yarn test
 
     - name: Code Coverage Report
@@ -68,6 +73,7 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
+      - name: Install
       - run: yarn
       
       - name: Download build artifact
@@ -82,6 +88,7 @@ jobs:
           name: dist
           path: dist
 
+      - name: Increment version
       - run: yarn inc-version
 
       - name: npm-publish
@@ -89,7 +96,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           provenance: true
-          
+
       # - run: npm install -g npm
       # - run: npm ci
       # - run: npm publish --provenance --access public
@@ -101,10 +108,11 @@ jobs:
       
       - name: Set env $VERSION_TAG
         run: echo "VERSION_TAG=$(yarn get-version)" >> $GITHUB_ENV
-        
+
+      - name: Set tag to v$VERSION_TAG
       - run: git tag v$VERSION_TAG
 
-      - name: Commit report
+      - name: Commit 
         run: |
           git config --global user.name 'Shmulik-Kravitz'
           git config --global user.email '29735690+Shmulik-Kravitz@users.noreply.github.com'
