@@ -6,17 +6,17 @@ import {
   convertNumberToHebrew,
   getJewishMonthInHebrew,
   toHebrewJewishDate,
-} from "../src/jewishDateHebrew";
+} from "../src";
 
 describe("jewishDateHebrew", () => {
   it("Convert number to hebrew", () => {
     const gematriya = convertNumberToHebrew(5783);
-    expect(gematriya).toStrictEqual(`התשפ״ג`);
+    expect(gematriya).toStrictEqual("התשפ״ג");
   });
 
   it("Get jewish month in hebrew", () => {
     const jewishMonthInHebrew = getJewishMonthInHebrew(JewishMonth.Iyyar);
-    expect(jewishMonthInHebrew).toStrictEqual(`אייר`);
+    expect(jewishMonthInHebrew).toStrictEqual("אייר");
   });
 
   it("To hebrew jewish date", () => {
@@ -34,6 +34,6 @@ describe("jewishDateHebrew", () => {
     const date = new Date("2022-09-26");
     const jewishDate = toJewishDate(date);
     const jewishDateInHebrew = formatJewishDateInHebrew(jewishDate);
-    expect(jewishDateInHebrew).toStrictEqual(`א׳ תשרי התשפ״ג`);
+    expect(jewishDateInHebrew).toStrictEqual("א׳ תשרי התשפ״ג");
   });
 });

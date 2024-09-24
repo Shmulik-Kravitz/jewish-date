@@ -15,6 +15,8 @@ export default defineConfig({
         '**/.history/**',
         '**/.yarn/**',
         '**/coverage/**',
+        '**/lib/**',
+        '**/app/**',
         '**/config/**',
       ],
     },

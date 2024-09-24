@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { JewishMonth, JewishMonthType } from "../src/interfaces";
+import { JewishMonth } from "../src/interfaces";
+import type { JewishMonthType } from "../src/interfaces";
 import {
   calcDaysInMonth,
   formatJewishDate,
@@ -192,6 +193,18 @@ describe("jewishDate", () => {
     // console.log(gregorianDate);
     expect(formatDate(gregorianDate)).toStrictEqual(
       "2023-04-07"
+    );
+  });
+
+  it("Convert 5784-Kislev-1 to Gregorian date", () => {
+    const gregorianDate = toGregorianDate({
+      year: 5784,
+      monthName: JewishMonth.Kislev,
+      day: 1,
+    });
+    // console.log(gregorianDate);
+    expect(formatDate(gregorianDate)).toStrictEqual(
+      "2023-11-14"
     );
   });
 

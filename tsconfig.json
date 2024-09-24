@@ -13,6 +13,6 @@
     "esModuleInterop": true,
     "allowJs": true
   },
-  "include": ["./src/**/*", "./app/**/*", "./__test__/**/*"],
-  "exclude": ["./node_modules/**/*", "./dist/**/*", "./yarn/**/*"],
+  "include": ["./src/**/*",  "./__test__/**/*"],
+  "exclude": ["./node_modules/**/*", "./dist/**/*", "./yarn/**/*", "./app/**/*"],
 }

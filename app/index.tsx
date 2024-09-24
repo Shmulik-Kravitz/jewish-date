@@ -6,7 +6,6 @@
  *
  */
 
-import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { JewishMonth, calcDaysInMonth, formatJewishDate } from "../src";
 import {
@@ -89,12 +88,12 @@ export const test = (date: Date) => {
   console.log("jewishDateInHebrewStr", jewishDateInHebrewStr);
 
   console.log(jewishDate);
-  date = toGregorianDate(jewishDate);
-  console.log(date);
+  const gregorianDate = toGregorianDate(jewishDate);
+  console.log(gregorianDate);
 
   const jewishDate2 = {
-    year: 5782,
-    monthName: JewishMonth.AdarII,
+    year: 5784,
+    monthName: JewishMonth.Kislev,
     day: 1,
   };
   console.log(jewishDate2);
