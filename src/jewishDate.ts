@@ -182,8 +182,6 @@ export const toJewishDate = (date: Date): JewishDate => {
  * @returns {Date} The Gregorian date corresponding to the given Jewish date.
  * */
 export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
-  // From https://github.com/heocoi/jdn-to-date/blob/main/index.js
-
   const jewishMonth = getIndexByJewishMonth(jewishDate.monthName);
   // console.log({ jewishMonth });
   const jd = hebrewToJd(jewishDate.year, jewishMonth, jewishDate.day);
@@ -192,11 +190,9 @@ export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
   const gregDateArr = jdToGregorian(jd);
   // console.log(gregDateArr);
 
-  // For month, convert to month index.
   const date = new Date();
-  // Passing in 0 to Date constructor gives unix epoch (1970)
+  // Convert month to month index.
   date.setFullYear(gregDateArr[0], gregDateArr[1] - 1, gregDateArr[2])
-
   if (date.getHours() > 0) {
     // fix issue in chrome that we chan't set hours in Date Constructor for year 0000
     date.setHours(0, 0, 0, 0);
