@@ -193,7 +193,10 @@ export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
   // console.log(gregDateArr);
 
   // For month, convert to month index.
-  const date = new Date(gregDateArr[0], gregDateArr[1]-1, gregDateArr[2]);
+  const date = new Date();
+  // Passing in 0 to Date constructor gives unix epoch (1970)
+  date.setFullYear(gregDateArr[0], gregDateArr[1] - 1, gregDateArr[2])
+
   if (date.getHours() > 0) {
     // fix issue in chrome that we chan't set hours in Date Constructor for year 0000
     date.setHours(0, 0, 0, 0);
