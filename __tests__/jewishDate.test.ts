@@ -127,7 +127,8 @@ describe("jewishDate", () => {
     });
   });
   it("Convert 0001-01-01 to Jewish date", () => {
-    const date = new Date("0001-01-01");
+    const date = new Date();
+    date.setFullYear(1, 1, 1);
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 3761,
@@ -138,7 +139,8 @@ describe("jewishDate", () => {
   });
 
   it("Convert 0000-01-01 to Jewish date", () => {
-    const date = new Date("0000-01-01");
+    const date = new Date();
+    date.setFullYear(0, 1, 1);
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 3760,
