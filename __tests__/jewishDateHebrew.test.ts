@@ -20,7 +20,7 @@ describe("jewishDateHebrew", () => {
   });
 
   it("To hebrew jewish date", () => {
-    const date = new Date("2022-09-26");
+    const date = new Date(2022, 9, 26);
     const jewishDate = toJewishDate(date);
     const jewishMonthInHebrew = toHebrewJewishDate(jewishDate);
     expect(jewishMonthInHebrew).toStrictEqual({
@@ -31,7 +31,7 @@ describe("jewishDateHebrew", () => {
   });
 
   it("Format jewish date in hebrew", () => {
-    const date = new Date("2022-09-26");
+    const date = new Date(2022, 9, 26);
     const jewishDate = toJewishDate(date);
     const jewishDateInHebrew = formatJewishDateInHebrew(jewishDate);
     expect(jewishDateInHebrew).toStrictEqual("א׳ תשרי התשפ״ג");
