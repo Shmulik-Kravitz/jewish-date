@@ -62,24 +62,24 @@ const isJulian = jdn => jdn <= 2299160;
  * @returns {[number, number, number]} The Gregorian date as a tuple in the form of [year, month, day].
  */
 export function jdToGregorian(jd: number): [number, number, number] {
-  let b: number;
-  let c: number;
-  const jdint = Math.trunc(jd + 0.5);
-  if (isJulian(jd)) {
-    b = 0;
-    c = jdint + 32082;
-  } else {
-    const a = jdint + 32044;
-    b = Math.trunc((4 * a + 3) / 146097);
-    c = a - Math.trunc((b * 146097) / 4);
+  const wjd: number = Math.floor(jd - 0.5) + 0.5;
+  const depoch: number = wjd - GREGORIAN_EPOCH;
+  const quadricent: number = Math.floor(depoch / 146097);
+  const dqc: number = mod(depoch, 146097);
+  const cent: number = Math.floor(dqc / 36524);
+  const dcent: number = mod(dqc, 36524);
+  const quad: number = Math.floor(dcent / 1461);
+  const dquad: number = mod(dcent, 1461);
+  const yindex: number = Math.floor(dquad / 365);
+  let year: number = quadricent * 400 + cent * 100 + quad * 4 + yindex;
+  if (!(cent === 4 || yindex === 4)) {
+    year++;
   }
-
-  const d = Math.trunc((4 * c + 3) / 1461);
-  const e = c - Math.trunc((1461 * d) / 4);
-  const m = Math.trunc((5 * e + 2) / 153);
-  const day = e - Math.trunc((153 * m + 2) / 5) + 1;
-  const month = m + 3 - 12 * Math.trunc(m / 10);
-  const year = b * 100 + d - 4800 + Math.trunc(m / 10);
+  const yearday: number = wjd - gregorianToJd(year, 1, 1);
+  const leapadj: number =
+    wjd < gregorianToJd(year, 3, 1) ? 0 : leapGregorian(year) ? 1 : 2;
+  const month: number = Math.floor(((yearday + leapadj) * 12 + 373) / 367);
+  const day: number = wjd - gregorianToJd(year, month, 1) + 1;
 
   return [year, month, day];
 }
