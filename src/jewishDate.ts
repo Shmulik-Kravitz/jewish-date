@@ -153,7 +153,7 @@ export const formatJewishDate = (jewishDate: JewishDate): string => {
  */
 export const toJewishDate = (date: Date): JewishDate => {
   const year = date.getFullYear();
-  const month = date.getMonth() + 1;
+  const month = date.getMonth();
   const day = date.getDate();
   //   console.log({ year, month, day });
   const jd2 = gregorianToJd(year, month, day);

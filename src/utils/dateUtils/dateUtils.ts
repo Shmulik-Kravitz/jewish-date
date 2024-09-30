@@ -38,24 +38,20 @@ function leapGregorian(year: number) {
  * @param {number} day - The day of the month in the Gregorian calendar.
  * @returns {number} The Julian Day corresponding to the Gregorian date.
  */
-export function gregorianToJd(
-  year: number,
-  month: number,
-  day: number,
-): number {
-  return (
-    GREGORIAN_EPOCH -
-    1 +
-    365 * (year - 1) +
-    Math.floor((year - 1) / 4) +
-    -Math.floor((year - 1) / 100) +
-    Math.floor((year - 1) / 400) +
-    Math.floor(
-      (367 * month - 362) / 12 +
-        (month <= 2 ? 0 : leapGregorian(year) ? -1 : -2) +
-        day,
-    )
-  );
+export function gregorianToJd(year: number, month: number, day: number) {
+  // From gemini AI
+  // Adjust month and year for January and February
+  if (month < 3) {
+    year--;
+    month += 12;
+  }
+
+  // Calculate Julian Day Number
+  const A = Math.floor(year / 100);
+  const B = 2 - A + Math.floor(A / 4);
+  const JD = Math.floor(365.25 * year) + Math.floor(30.6001 * (month + 1)) + day + 1720994.5 + B;
+
+  return JD;
 }
 
 /**
