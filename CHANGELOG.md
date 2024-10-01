@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.13
+
+- Fix locale specific accuracy issues resulting from parsing date strings by switching to ```Date.setFullYear``` method
+
 ## 2.0.12
 
 - Publish with provenance
