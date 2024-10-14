@@ -153,7 +153,7 @@ export const formatJewishDate = (jewishDate: JewishDate): string => {
  */
 export const toJewishDate = (date: Date): JewishDate => {
   const year = date.getFullYear();
-  const month = date.getMonth() + 1;
+  const month = date.getMonth();
   const day = date.getDate();
   //   console.log({ year, month, day });
   const jd2 = gregorianToJd(year, month, day);
@@ -189,13 +189,10 @@ export const toGregorianDate = (jewishDate: BasicJewishDate): Date => {
 
   const gregDateArr = jdToGregorian(jd);
   // console.log(gregDateArr);
-  const dateStr = `${toLength(gregDateArr[0], 4)}-${toLength(
-    gregDateArr[1],
-    2,
-  )}-${toLength(gregDateArr[2], 2)}`;
-  // console.log(dateStr);
 
-  const date = new Date(dateStr);
+  const date = new Date();
+  // Convert month to month index.
+  date.setFullYear(gregDateArr[0], gregDateArr[1] - 1, gregDateArr[2])
   if (date.getHours() > 0) {
     // fix issue in chrome that we chan't set hours in Date Constructor for year 0000
     date.setHours(0, 0, 0, 0);
