@@ -53,7 +53,7 @@ import {
   JewishMonth,
 } from "jewish-date";
 
-const date = new Date("2023-05-09");
+const date = new Date(2023, 4, 9); // the month is 0-indexed (4 = May)
 const jewishDate = toJewishDate(date);
 console.log(jewishDate); // { year: 5783, monthName: "Iyyar", month: 8, day: 18 }
 

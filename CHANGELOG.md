@@ -1,8 +1,12 @@
 # Changelog
 
-## 2.0.13
+## 2.0.15
 
-- Fix locale specific accuracy issues resulting from parsing date strings by switching to ```Date.setFullYear``` method
+- fix: Resolved critical issue with date conversion for months represented as zero-indexed values in the JavaScript Date object, ensuring accurate date handling. (Reverted change from version 2.0.14)
+
+## 2.0.14
+
+- fix: Resolved locale specific accuracy issues resulting from parsing date strings by switching to ```Date.setFullYear``` method
 
 ## 2.0.12
 

@@ -153,9 +153,16 @@ export const formatJewishDate = (jewishDate: JewishDate): string => {
  */
 export const toJewishDate = (date: Date): JewishDate => {
   const year = date.getFullYear();
-  const month = date.getMonth();
+
+  /*
+  Note: The month in JavaScript's Date object is 0-indexed (January is 0, December is 11).
+  To convert to a correct date representation, we will add 1 to the month value.
+  */
+  const month = date.getMonth() + 1;
+
   const day = date.getDate();
   //   console.log({ year, month, day });
+  
   const jd2 = gregorianToJd(year, month, day);
 
   const jewishDateArr = jdToHebrew(jd2);

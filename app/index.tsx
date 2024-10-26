@@ -116,7 +116,7 @@ export const test = (date: Date) => {
 
   return jewishDate;
 };
-const date = new Date("2023-05-09");
+const date = new Date(2023, 4, 9); // the month is 0-indexed (4 = May)
 // const date = new Date();
 
 const jewishDate = test(date);

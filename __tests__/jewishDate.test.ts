@@ -41,7 +41,7 @@ describe("jewishDate", () => {
   });
 
   it("Format jewish date", async () => {
-    const date = new Date(2022, 9, 26);
+    const date = new Date(2022, 8, 26);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(formatJewishDate(jewishDate)).toEqual('1 Tishri 5783');
   });
@@ -62,7 +62,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 2023-04-26 to Jewish date", () => {
-    const date = new Date(2023, 4, 26);
+    const date = new Date(2023, 3, 26);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5783,
@@ -73,7 +73,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 2022-02-02 to Jewish date", () => {
-    const date = new Date(2022, 2, 2);
+    const date = new Date(2022, 1, 2);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5782,
@@ -84,7 +84,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 2022-09-26 to Jewish date", () => {
-    const date = new Date(2022, 9, 26);
+    const date = new Date(2022, 8, 26); // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5783,
@@ -95,7 +95,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 2023-03-23 to Jewish date", () => {
-    const date = new Date(2023, 3, 23);
+    const date = new Date(2023, 2, 23);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5783,
@@ -106,7 +106,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 1835-09-24 to Jewish date", () => {
-    const date = new Date(1835, 9, 24);
+    const date = new Date(1835, 8, 24);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5596,
@@ -117,7 +117,7 @@ describe("jewishDate", () => {
   });
 
   it("Convert 1901-01-01 to Jewish date", () => {
-    const date = new Date(1901, 1, 1);
+    const date = new Date(1901, 0, 1);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 5661,
@@ -128,7 +128,7 @@ describe("jewishDate", () => {
   });
   it("Convert 0001-01-01 to Jewish date", () => {
     const date = new Date();
-    date.setFullYear(1, 1, 1);
+    date.setFullYear(1, 0, 1);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 3761,
@@ -140,7 +140,7 @@ describe("jewishDate", () => {
 
   it("Convert 0000-01-01 to Jewish date", () => {
     const date = new Date();
-    date.setFullYear(0, 1, 1);
+    date.setFullYear(0, 0, 1);  // the month is 0-indexed
     const jewishDate = toJewishDate(date);
     expect(jewishDate).toStrictEqual({
       year: 3760,
