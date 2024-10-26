@@ -162,7 +162,7 @@ export const toJewishDate = (date: Date): JewishDate => {
 
   const day = date.getDate();
   //   console.log({ year, month, day });
-  
+
   const jd2 = gregorianToJd(year, month, day);
 
   const jewishDateArr = jdToHebrew(jd2);
