@@ -110,17 +110,20 @@ jobs:
       # - run: yarn npm publish --access public
       #   env:
       #     YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
-      - name: Set env $VERSION_TAG
-        run: echo "VERSION_TAG=$(yarn get-version)" >> $GITHUB_ENV
+      - name: Configure git identity
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
 
-      - name: Set the tag to v$VERSION_TAG
-        run: git tag v$VERSION_TAG
+      - name: Get version from package.json
+        id: get_version
+        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
+      - name: Set the tag to v${{ steps.get_version.outputs.version }}
+        run:  git tag -a v${{ steps.get_version.outputs.version }} -m "Version ${{ steps.get_version.outputs.version }}"
 
       - name: Commit 
         run: |
-          git config --global user.name 'Shmulik-Kravitz'
-          git config --global user.email '29735690+Shmulik-Kravitz@users.noreply.github.com'
           git commit -am v$VERSION_TAG
           git push
-          git push origin v$VERSION_TAG
+          git push origin v${{ steps.get_version.outputs.version }}
