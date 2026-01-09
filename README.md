@@ -60,11 +60,19 @@ console.log(jewishDate); // { year: 5783, monthName: "Iyyar", month: 8, day: 18 
 const jewishDateInEnglish = formatJewishDate(jewishDate);
 console.log(jewishDateInEnglish); // 18 Iyyar 5783
 
+// With custom format pattern (similar to date-fns)
+const formatted = formatJewishDate(jewishDate, "dd/MM/yyyy");
+console.log(formatted); // 18/08/5783
+
 const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
 console.log(jewishDateInHebrew); // { day: "י״ח", monthName: "אייר", year: "התשפ״ג" }
 
 const jewishDateInHebrewStr = formatJewishDateInHebrew(jewishDate);
 console.log(jewishDateInHebrewStr); // י״ח אייר התשפ״ג
+
+// With custom format pattern in Hebrew (gematria)
+const formattedHebrew = formatJewishDateInHebrew(jewishDate, "D/MM/YY");
+console.log(formattedHebrew); // י״ח/02/פ״ג
 
 const date2 = toGregorianDate({
   year: 5783,
@@ -100,6 +108,43 @@ const {
   toGregorianDate,
   JewishMonth,
 } = require("jewish-date");
+```
+
+## Format Patterns
+
+Both `formatJewishDate` and `formatJewishDateInHebrew` accept an optional pattern string as the second argument. The pattern uses tokens similar to [date-fns](https://date-fns.org/docs/format).
+
+### Supported Tokens
+
+| Token  | Description              | `formatJewishDate` | `formatJewishDateInHebrew` |
+| ------ | ------------------------ | ------------------ | -------------------------- |
+| `d`    | Day (numeric)            | 8                  | 8                          |
+| `dd`   | Day (zero-padded)        | 08                 | 08                         |
+| `D`    | Day (gematria in Hebrew) | 8                  | ח׳                         |
+| `M`    | Month number             | 2                  | 2                          |
+| `MM`   | Month number (padded)    | 02                 | 02                         |
+| `MMMM` | Month name               | Iyyar              | אייר                       |
+| `yy`   | Year short (numeric)     | 83                 | 83                         |
+| `YY`   | Year short (gematria)    | 83                 | פ״ג                        |
+| `yyyy` | Year full (numeric)      | 5783               | 5783                       |
+| `YYYY` | Year full (gematria)     | 5783               | התשפ״ג                     |
+
+### Examples
+
+```js
+const jewishDate = toJewishDate(new Date(2023, 4, 9)); // 18 Iyyar 5783
+
+// English formatting (default: "d MMMM yyyy")
+formatJewishDate(jewishDate);                 // "18 Iyyar 5783"
+formatJewishDate(jewishDate, "dd/MM/yyyy");   // "18/08/5783"
+formatJewishDate(jewishDate, "MMMM d, yyyy"); // "Iyyar 18, 5783"
+formatJewishDate(jewishDate, "yyyy-MM-dd");   // "5783-08-18"
+
+// Hebrew formatting (default: "D MMMM YYYY")
+formatJewishDateInHebrew(jewishDate);                 // "י״ח אייר התשפ״ג"
+formatJewishDateInHebrew(jewishDate, "D MMMM YYYY");  // "י״ח אייר התשפ״ג"
+formatJewishDateInHebrew(jewishDate, "dd/MM/yyyy");   // "18/08/5783" (numeric)
+formatJewishDateInHebrew(jewishDate, "d MMMM yyyy");  // "18 אייר 5783" (mixed)
 ```
 
 # License

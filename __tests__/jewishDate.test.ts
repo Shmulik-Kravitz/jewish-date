@@ -46,6 +46,54 @@ describe("jewishDate", () => {
     expect(formatJewishDate(jewishDate)).toEqual('1 Tishri 5783');
   });
 
+  it("Format jewish date with default pattern", async () => {
+    const date = new Date(2022, 8, 26);  // the month is 0-indexed
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "d MMMM yyyy")).toEqual('1 Tishri 5783');
+  });
+
+  it("Format jewish date with custom pattern dd/MM/yyyy", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "dd/MM/yyyy")).toEqual('05/08/5783');
+  });
+
+  it("Format jewish date with custom pattern MMMM d, yyyy", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "MMMM d, yyyy")).toEqual('Iyyar 5, 5783');
+  });
+
+  it("Format jewish date with short year yy", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "d/M/yy")).toEqual('5/8/83');
+  });
+
+  it("Format jewish date with yyyy-MM-dd pattern", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "yyyy-MM-dd")).toEqual('5783-08-05');
+  });
+
+  it("Format jewish date with trailing literal text", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "d MMMM yyyy!")).toEqual('5 Iyyar 5783!');
+  });
+
+  it("Format jewish date with uppercase D token", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "D MMMM YYYY")).toEqual('5 Iyyar 5783');
+  });
+
+  it("Format jewish date with uppercase YY token", async () => {
+    const date = new Date(2023, 3, 26);  // 5 Iyyar 5783
+    const jewishDate = toJewishDate(date);
+    expect(formatJewishDate(jewishDate, "d/M/YY")).toEqual('5/8/83');
+  });
+
   it("Get index by jewish month with invalid value", () => {
     const jewishDate = getIndexByJewishMonth("invalid" as unknown as JewishMonthType);
     expect(jewishDate).toStrictEqual(0);
