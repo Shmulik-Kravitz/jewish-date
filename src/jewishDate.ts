@@ -19,7 +19,11 @@ import {
   jdToGregorian,
   jdToHebrew,
 } from "./utils/dateUtils/dateUtils";
-import { toLength } from "./utils/numberUtils/numberUtils";
+import {
+  DEFAULT_PATTERN,
+  formatWithPattern,
+  getEnglishFormatters,
+} from "./utils/formatUtils";
 
 /**
  * Checks if the given year is a leap year according to the Jewish calendar.
@@ -138,12 +142,29 @@ export const getJewishMonthsInOrder = (year: number): string[] => {
 };
 
 /**
- * Returns a string representation of the given Jewish date in the format 'כ"א ניסן תשפ"ג'.
+ * Returns a string representation of the given Jewish date.
  * @param {JewishDate} jewishDate - The Jewish date to format.
- * @returns {string} A string representation of the given Jewish date in the format 'כ"א ניסן תשפ"ג'.
+ * @param {string} [pattern] - Optional format pattern (e.g., "d MMMM yyyy", "dd/MM/yy").
+ *   Supported tokens: d (day), dd (day padded), D (day), M (month), MM (month padded),
+ *   MMMM (month name), yy (short year), YY (short year), yyyy (full year), YYYY (full year).
+ *   Default pattern: "d MMMM yyyy"
+ * @returns {string} A string representation of the given Jewish date.
  */
-export const formatJewishDate = (jewishDate: JewishDate): string => {
-  return `${jewishDate.day} ${jewishDate.monthName} ${jewishDate.year}`;
+export const formatJewishDate = (
+  jewishDate: JewishDate,
+  pattern?: string,
+): string => {
+  const formatPattern = pattern ?? DEFAULT_PATTERN;
+  return formatWithPattern(
+    formatPattern,
+    {
+      day: jewishDate.day,
+      month: jewishDate.month,
+      monthName: jewishDate.monthName,
+      year: jewishDate.year,
+    },
+    getEnglishFormatters,
+  );
 };
 
 /**

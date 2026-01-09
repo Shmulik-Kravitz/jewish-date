@@ -13,6 +13,12 @@ import type {
   JewishMonthType,
 } from "./interfaces";
 import { JewishMonth } from "./interfaces";
+import { getIndexByJewishMonth } from "./jewishDate";
+import {
+  DEFAULT_PATTERN_HEBREW,
+  createHebrewFormatters,
+  formatWithPattern,
+} from "./utils/formatUtils";
 
 /**
  * Returns the name of a Jewish month in Hebrew, given its type.
@@ -59,6 +65,17 @@ export const convertNumberToHebrew = (
 };
 
 /**
+ * Converts a year to its short Hebrew equivalent (last two significant digits).
+ * For example, 5783 → פ״ג (83 in gematria)
+ * @param year - The year to convert
+ * @returns The short Hebrew equivalent of the year
+ */
+export const convertYearToShortHebrew = (year: number): string => {
+  const shortYear = year % 100;
+  return gematriya(shortYear, { geresh: true, punctuate: true });
+};
+
+/**
  * Converts a basic Jewish date object to a Hebrew date object with Hebrew letters.
  * @param {BasicJewishDate} jewishDate - The basic Jewish date object to convert.
  * @returns {BasicJewishDateHebrew} The Hebrew date object with Hebrew letters.
@@ -76,11 +93,32 @@ export const toHebrewJewishDate = (
 /**
  * Formats a Jewish date object into a string representation in Hebrew.
  * @param {BasicJewishDate} jewishDate - The Jewish date object to format.
+ * @param {string} [pattern] - Optional format pattern (e.g., "D MMMM YYYY", "dd/MM/yyyy").
+ *   Supported tokens:
+ *   - Lowercase (numeric): d, dd (day), M, MM (month), yy, yyyy (year)
+ *   - Uppercase (gematria): D (day), YY, YYYY (year)
+ *   - MMMM (Hebrew month name)
+ *   Default pattern: "D MMMM YYYY" (all Hebrew gematria)
  * @returns {string} The Hebrew string representation of the Jewish date.
  */
 export const formatJewishDateInHebrew = (
   jewishDate: BasicJewishDate,
+  pattern?: string,
 ): string => {
-  const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
-  return `${jewishDateInHebrew.day} ${jewishDateInHebrew.monthName} ${jewishDateInHebrew.year}`;
+  const formatPattern = pattern ?? DEFAULT_PATTERN_HEBREW;
+  const hebrewFormatters = createHebrewFormatters(
+    convertNumberToHebrew,
+    (monthName) => getJewishMonthInHebrew(monthName as JewishMonthType),
+    convertYearToShortHebrew,
+  );
+  return formatWithPattern(
+    formatPattern,
+    {
+      day: jewishDate.day,
+      month: getIndexByJewishMonth(jewishDate.monthName),
+      monthName: jewishDate.monthName,
+      year: jewishDate.year,
+    },
+    hebrewFormatters,
+  );
 };
