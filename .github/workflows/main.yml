@@ -96,11 +96,9 @@ jobs:
       - name: Increment version
         run: yarn inc-version
 
-      - name: npm-publish
-        uses: JS-DevTools/npm-publish@v4
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          provenance: true
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+
 
       # - run: npm install -g npm
       # - run: npm ci
