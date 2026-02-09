@@ -79,7 +79,9 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
           always-auth: true
-
+      
+      - run: npm config list
+      
       - name: Install
         run: yarn
       
