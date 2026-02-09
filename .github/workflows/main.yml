@@ -77,7 +77,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 20
-          cache: 'yarn'
+          registry-url: https://registry.npmjs.org
+          always-auth: true
 
       - name: Install
         run: yarn
