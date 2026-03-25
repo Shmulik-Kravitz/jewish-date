@@ -61,7 +61,9 @@ export interface BasicJewishDate {
   day: number;
 
   /**
-   * monthName
+   * Name of the Jewish month. Prefer this over {@link JewishDate.month} for
+   * month comparisons and display — the numeric index shifts between regular
+   * and leap years, while the name is unambiguous.
    */
   monthName: JewishMonthType;
 
@@ -77,6 +79,11 @@ export interface JewishDate extends BasicJewishDate {
    * Index 0 is the sentinel value `None`.
    * In a regular (non-leap) year the range is 1–12; in a leap year 1–13.
    * See {@link JewishMonth} for the full index-to-month mapping.
+   *
+   * **Note:** The same index maps to different months depending on whether the
+   * year is a leap year (e.g. index 7 is `Nisan` in a regular year but
+   * `AdarII` in a leap year).  Prefer using {@link BasicJewishDate.monthName}
+   * for month comparisons and display to avoid year-type ambiguity.
    */
   month: number;
 }
