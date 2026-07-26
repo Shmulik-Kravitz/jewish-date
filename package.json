@@ -67,7 +67,20 @@
     "convert",
     "hdate",
     "hebcal",
-    "hcal"
+    "hcal",
+    "jewish-date",
+    "hebrew-date",
+    "jewish-calendar",
+    "hebrew-calendar",
+    "gregorian",
+    "date-converter",
+    "date-conversion",
+    "format",
+    "gematria",
+    "leap-year",
+    "israel",
+    "judaism",
+    "typescript"
   ],
   "packageManager": "yarn@4.7.0"
 }
