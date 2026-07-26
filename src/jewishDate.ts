@@ -192,9 +192,8 @@ export const toJewishDate = (date: Date): JewishDate => {
   const jewishYear = jewishDateArr[0];
   const jewishMonthName = getJewishMonthByIndex(jewishDateArr[1], jewishYear);
   // console.log({ jewishMonthName });
-  const jewishMonth = getJewishMonthsInOrder(jewishYear).findIndex(
-    (i) => i === jewishMonthName,
-  );
+  const jewishMonth =
+    getJewishMonthsInOrder(jewishYear).indexOf(jewishMonthName);
   const JewishDate: JewishDate = {
     year: jewishYear,
     monthName: jewishMonthName,
