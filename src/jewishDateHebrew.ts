@@ -15,8 +15,8 @@ import type {
 import { JewishMonth } from "./interfaces";
 import { getIndexByJewishMonth } from "./jewishDate";
 import {
-  DEFAULT_PATTERN_HEBREW,
   createHebrewFormatters,
+  DEFAULT_PATTERN_HEBREW,
   formatWithPattern,
 } from "./utils/formatUtils";
 
