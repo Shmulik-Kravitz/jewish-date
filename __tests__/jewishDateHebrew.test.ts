@@ -11,8 +11,8 @@ import {
 
 describe("jewishDateHebrew", () => {
   it("Convert number to hebrew", () => {
-    const gematriya = convertNumberToHebrew(5783);
-    expect(gematriya).toStrictEqual("התשפ״ג");
+    const gematria = convertNumberToHebrew(5783);
+    expect(gematria).toStrictEqual("התשפ״ג");
   });
 
   it("Get jewish month in hebrew", () => {

@@ -6,7 +6,6 @@
  *
  */
 
-import gematriya from "gematriya";
 import type {
   BasicJewishDate,
   BasicJewishDateHebrew,
@@ -19,6 +18,7 @@ import {
   DEFAULT_PATTERN_HEBREW,
   formatWithPattern,
 } from "./utils/formatUtils";
+import { toGematria } from "./utils/gematriaUtils";
 
 /**
  * Returns the name of a Jewish month in Hebrew, given its type.
@@ -61,7 +61,7 @@ export const convertNumberToHebrew = (
   addGeresh = true,
   addPunctuate = true,
 ): string => {
-  return gematriya(num, { geresh: addGeresh, punctuate: addPunctuate });
+  return toGematria(num, { geresh: addGeresh, punctuate: addPunctuate });
 };
 
 /**
@@ -72,7 +72,7 @@ export const convertNumberToHebrew = (
  */
 export const convertYearToShortHebrew = (year: number): string => {
   const shortYear = year % 100;
-  return gematriya(shortYear, { geresh: true, punctuate: true });
+  return toGematria(shortYear, { geresh: true, punctuate: true });
 };
 
 /**

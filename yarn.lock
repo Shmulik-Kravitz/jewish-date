@@ -718,13 +718,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gematriya@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@types/gematriya@npm:2.0.5"
-  checksum: 10/8adcaba7a74598cb76c24d533244545883e8405a6ee0345a5529c728f117b6d8ed535c80b128cda72a2fe5a2053a4d2b4578c057999bb31990cf0546092a96ca
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^26.2.0":
   version: 26.2.0
   resolution: "@types/node@npm:26.2.0"
@@ -1456,13 +1449,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gematriya@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "gematriya@npm:2.0.0"
-  checksum: 10/d66e7a561f15995b8c307b5178e75e2a07a4d464c4d59b1b29474615b80c865fc2fa018aef08df0a234c191e57b7f95cfbce7b556723e5a9b512b4b00fddb37e
-  languageName: node
-  linkType: hard
-
 "glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7":
   version: 10.5.0
   resolution: "glob@npm:10.5.0"
@@ -1631,7 +1617,6 @@ __metadata:
   resolution: "jewish-date@workspace:."
   dependencies:
     "@biomejs/biome": "npm:^2.5.9"
-    "@types/gematriya": "npm:^2.0.5"
     "@types/node": "npm:^26.2.0"
     "@types/react": "npm:^19.2.18"
     "@types/react-dom": "npm:^19.2.4"
@@ -1641,7 +1626,6 @@ __metadata:
     esbuild-plugin-file-path-extensions: "npm:^2.1.4"
     esbuild-runner: "npm:^2.2.2"
     fs-extra: "npm:^11.4.0"
-    gematriya: "npm:^2.0.0"
     react: "npm:^19.2.8"
     react-dom: "npm:^19.2.8"
     rimraf: "npm:^6.1.3"

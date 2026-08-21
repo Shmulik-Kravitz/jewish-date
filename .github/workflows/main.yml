@@ -123,12 +123,25 @@ jobs:
         id: get_version
         run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
-      - name: Set the tag to v${{ steps.get_version.outputs.version }}
-        run:  git tag -a v${{ steps.get_version.outputs.version }} -m "Version ${{ steps.get_version.outputs.version }}"
-
-      - name: Commit 
+      - name: Set the version in the changelog
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
         run: |
-          git commit -am v${{ steps.get_version.outputs.version }}
+          if grep -q '^## Unreleased[[:space:]]*$' CHANGELOG.md; then
+            sed -i "0,/^## Unreleased[[:space:]]*$/s//## $VERSION/" CHANGELOG.md
+            echo "Renamed the '## Unreleased' section to '## $VERSION'."
+          else
+            echo "No '## Unreleased' section in CHANGELOG.md - leaving it unchanged."
+          fi
+
+      - name: Commit
+        run: git commit -am v${{ steps.get_version.outputs.version }}
+
+      - name: Set the tag to v${{ steps.get_version.outputs.version }}
+        run: git tag -a v${{ steps.get_version.outputs.version }} -m "Version ${{ steps.get_version.outputs.version }}"
+
+      - name: Push the commit and the tag
+        run: |
           git push
           git push origin v${{ steps.get_version.outputs.version }}
 
