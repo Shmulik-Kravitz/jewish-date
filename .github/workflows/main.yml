@@ -121,13 +121,26 @@ jobs:
 
       - name: Get version from package.json
         id: get_version
-        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       - name: Set the tag to v${{ steps.get_version.outputs.version }}
         run:  git tag -a v${{ steps.get_version.outputs.version }} -m "Version ${{ steps.get_version.outputs.version }}"
 
       - name: Commit 
         run: |
-          git commit -am v$VERSION_TAG
+          git commit -am v${{ steps.get_version.outputs.version }}
           git push
           git push origin v${{ steps.get_version.outputs.version }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.get_version.outputs.version }}
+        run: |
+          awk -v ver="## $VERSION" '$0 == ver { found = 1; next } found && /^## / { exit } found' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
+          if [ -s "$RUNNER_TEMP/release-notes.md" ]; then
+            gh release create "v$VERSION" --title "v$VERSION" --notes-file "$RUNNER_TEMP/release-notes.md"
+          else
+            echo "No '## $VERSION' section in CHANGELOG.md - falling back to auto-generated notes."
+            gh release create "v$VERSION" --title "v$VERSION" --generate-notes
+          fi

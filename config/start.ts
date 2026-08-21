@@ -1,4 +1,4 @@
-import { start } from "./utils/esbuildUtils";
+import { start } from "./utils/esbuildUtils.ts";
 
 const entryPoints = "./app/index.tsx";
 const outfile = "./config/static/out.js";

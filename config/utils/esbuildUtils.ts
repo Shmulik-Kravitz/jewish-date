@@ -3,9 +3,9 @@ import * as esbuild from "esbuild";
 import nodeExternalsPlugin from "esbuild-node-externals";
 import path from "path";
 import fs from "fs-extra";
-import { Colors } from "./colorsUtils";
-import { buildDeclarations } from "./tsUtils";
-import { getFiles } from "./filesUtils";
+import { Colors } from "./colorsUtils.ts";
+import { buildDeclarations } from "./tsUtils.ts";
+import { getFiles } from "./filesUtils.ts";
 import { esbuildPluginFilePathExtensions } from 'esbuild-plugin-file-path-extensions';
 
 export const baseConfig: esbuild.BuildOptions = {
@@ -22,7 +22,7 @@ export const start = async (entryPoints: string, outfile: string) => {
     entryPoints: [entryPoints],
     outfile: "./config/static/out.js",
   });
-  const { host, port } = await ctx.serve({
+  const { hosts, port } = await ctx.serve({
     port: 3000,
     servedir: "./config/static",
     onRequest: (args) => {
@@ -30,8 +30,11 @@ export const start = async (entryPoints: string, outfile: string) => {
     },
 
   });
-  console.log(`http://${host}:${port}/`);
-  console.log(`http://127.0.0.1:${port}/`);
+  for (const host of hosts) {
+    // IPv6 addresses need brackets to form a valid URL.
+    const hostname = host.includes(":") ? `[${host}]` : host;
+    console.log(`http://${hostname}:${port}/`);
+  }
 
   const end = new Date().getTime();
   const time = end - start;
@@ -44,13 +47,7 @@ export const start = async (entryPoints: string, outfile: string) => {
   // server.stop()
 };
 
-export const build = async (
-  bashPath: string,
-  tsconfigPath: string,
-  srcPath: string,
-  outPath: string,
-  declarationsOutPath: string
-) => {
+export const build = async (tsconfigPath: string, outPath: string) => {
   const start = new Date().getTime();
   const outPathEsm = path.resolve(outPath, "mjs");
   const entryPoints = (await getFiles(path.join(process.cwd(), "src"))).map((file) => file.replace(process.cwd(), '.'));
@@ -85,11 +82,10 @@ export const build = async (
   ])
 
     .then(async () => {
-      const esmPackageJsonPath = path.resolve("./config/vitest", "package.json");
+      // Marks the ESM output as a module. Written directly rather than copied
+      // out of config/, so the build does not depend on that layout.
       const esmDistPackageJsonPath = path.resolve(outPathEsm, "package.json");
-      // console.log(esmPackageJsonPath);
-      // console.log(esmDistPackageJsonPath);
-      await fs.copyFile(esmPackageJsonPath, esmDistPackageJsonPath);
+      await fs.writeJSON(esmDistPackageJsonPath, { type: "module" }, { spaces: 2 });
 
       const endBuild = new Date().getTime();
       const timeBuild = endBuild - start;
@@ -101,12 +97,7 @@ export const build = async (
       );
 
       // https://gist.github.com/jeremyben/4de4fdc40175d0f76892209e00ece98f
-      await buildDeclarations(
-        bashPath,
-        tsconfigPath,
-        srcPath,
-        declarationsOutPath
-      );
+      await buildDeclarations(tsconfigPath);
       const end = new Date().getTime();
       const time = end - endBuild;
       console.log(
