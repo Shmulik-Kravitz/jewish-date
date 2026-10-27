@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { JewishMonth } from "../src/interfaces";
 import type { JewishMonthType } from "../src/interfaces";
 import {
@@ -287,5 +287,35 @@ describe("jewishDate", () => {
     const numberOfDays = calcDaysInMonth(5783, JewishMonth.Cheshvan);
     // console.log(gregorianDate);
     expect(numberOfDays).toEqual(30);
+  });
+
+  describe("toGregorianDate", () => {
+    beforeEach(() => {
+      // Use a fake timer between midnight and 1 AM
+      vi.useFakeTimers();
+      const date = new Date();
+      date.setHours(0, 30, 0, 0);
+      vi.setSystemTime(date);
+
+
+      // Whenever a `Date` is constructed, advance timers;
+      // makes two `new Date()` calls return different dates always, for better reproduction.
+      vi.stubGlobal("Date", new Proxy(Date, {
+        construct(target, args) {
+          if (args.length === 0) vi.advanceTimersByTime(1);
+          return Reflect.construct(target, args);
+        },
+      }))
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it("Converts a date identically every time", () => {
+      const jewishDate = toJewishDate(new Date());
+
+      expect(toGregorianDate(jewishDate)).toEqual(toGregorianDate(jewishDate));
+    });
   });
 });
